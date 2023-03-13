@@ -1,0 +1,5 @@
+@font-face {
+  font-family: "Sono";
+  src: url("/fonts/Sono/Sono-VariableFont_MONO.ttf");
+  font-display: fallback;
+}

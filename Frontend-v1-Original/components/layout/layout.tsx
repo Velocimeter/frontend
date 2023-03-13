@@ -20,12 +20,6 @@ export default function Layout({
           as="font"
           crossOrigin=""
         />
-        <link
-          rel="preload"
-          href="/fonts/Inter/Inter-Bold.ttf"
-          as="font"
-          crossOrigin=""
-        />
         <meta
           name="description"
           content="Velocimeter allows low cost, near 0 slippage trades on uncorrelated or tightly correlated assets built on Arbitrum."

@@ -18,7 +18,6 @@ import classes from "./ssVotes.module.css";
 import { formatCurrency } from "../../utils/utils";
 
 import GaugesTable from "./ssVotesTable";
-import Timer from "./timer";
 
 import stores from "../../stores";
 import { ACTIONS } from "../../stores/constants/constants";
@@ -46,14 +45,8 @@ export default function ssVotes() {
   const [token, setToken] = useState(initialEmptyToken);
   const [vestNFTs, setVestNFTs] = useState([]);
   const [search, setSearch] = useState("");
-  const [updateDate, setUpdateDate] = useState(0);
 
   const ssUpdated = () => {
-    const _updateDate = stores.stableSwapStore.getStore("updateDate");
-    if (_updateDate) {
-      setUpdateDate(_updateDate);
-    }
-
     setVeToken(stores.stableSwapStore.getStore("veToken"));
     const as = stores.stableSwapStore.getStore("pairs");
 
@@ -266,7 +259,6 @@ export default function ssVotes() {
             to earn bribes and trading fees.
           </Typography>
         </div>
-        <Timer deadline={updateDate} />
       </div>
       <div className={classes.topBarContainer}>
         <Grid container spacing={1}>

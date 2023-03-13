@@ -176,7 +176,7 @@ function Vest() {
   };
 
   return (
-    <div className="relative mt-0 flex h-full w-full flex-col pt-20 lg:pt-28">
+    <div className="relative mt-0 flex h-full w-full flex-col pt-8">
       {account && account.address ? (
         <div>
           <Vesting />

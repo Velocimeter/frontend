@@ -15,6 +15,7 @@ export default class MyDocument extends Document {
       <Html lang="en">
         <Head>
           <link rel="stylesheet" href="/fonts/Inter/Inter.css" />
+          <link rel="stylesheet" href="/fonts/Sono/Sono.css" />
           <link rel="stylesheet" href="/fonts/MonumentExt/Monument.css" />
           <link rel="stylesheet" href="/fonts/Druk/Druk.css" />
         </Head>

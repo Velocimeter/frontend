@@ -18,26 +18,24 @@ import {
   List,
   ArrowDropDown,
   AccountBalanceWalletOutlined,
-  DashboardOutlined,
 } from "@mui/icons-material";
 
 import Navigation from "../navigation/navigation";
 import Unlock from "../unlock/unlockModal";
 import TransactionQueue from "../transactionQueue/transactionQueue";
+import Info from "./info";
 
+import useScrollPosition from "../../hooks/useScrollPosition";
 import { ACTIONS } from "../../stores/constants/constants";
-
 import stores from "../../stores";
 import { formatAddress } from "../../utils/utils";
-
-import classes from "./header.module.css";
 
 type EthWindow = Window &
   typeof globalThis & {
     ethereum?: any;
   };
 
-function SiteLogo(props: { className: string }) {
+function SiteLogo(props: { className?: string }) {
   const { className } = props;
   return (
     <Image
@@ -172,43 +170,7 @@ function Header() {
   const [chainInvalid, setChainInvalid] = useState(false);
   const [transactionQueueLength, setTransactionQueueLength] = useState(0);
 
-  useEffect(() => {
-    // The debounce function receives our function as a parameter
-    const debounce = (fn) => {
-      // This holds the requestAnimationFrame reference, so we can cancel it if we wish
-      let frame;
-      // The debounce function returns a new function that can receive a variable number of arguments
-      return (...params) => {
-        // If the frame variable has been defined, clear it now, and queue for next frame
-        if (frame) {
-          cancelAnimationFrame(frame);
-        }
-        // Queue our function call for the next frame
-        frame = requestAnimationFrame(() => {
-          // Call our function and pass any params we received
-          fn(...params);
-        });
-      };
-    };
-
-    // Reads out the scroll position and stores it in the data attribute
-    // so we can use it in our stylesheets
-    const storeScroll = () => {
-      document.documentElement.dataset.scroll = window.scrollY.toString();
-    };
-
-    // Listen for new scroll events, here we debounce our `storeScroll` function
-    document.addEventListener("scroll", debounce(storeScroll), {
-      passive: true,
-    });
-
-    // Update scroll position for first time
-    storeScroll();
-
-    return () => {
-      document.removeEventListener("scroll", debounce(storeScroll));
-    };
-  }, []);
+  const scrollPosition = useScrollPosition();
 
   useEffect(() => {
     const accountConfigure = () => {
@@ -261,122 +223,118 @@ function Header() {
 
   return (
     <>
-      <div className={classes.headerContainer}>
-        <a
-          onClick={() => router.push("/home")}
-          className="flex cursor-pointer items-center justify-center gap-2 rounded-[40px] py-1"
-        >
-          <SiteLogo className={classes.appLogo} />
-          <Typography className={classes.logoText}>v2</Typography>
-        </a>
-        <Navigation />
-        <div
-          style={{
-            width: "260px",
-            display: "flex",
-            justifyContent: "flex-end",
-          }}
-        >
-          {process.env.NEXT_PUBLIC_CHAINID === "740" && (
-            <div className={classes.testnetDisclaimer}>
-              <Typography className={classes.testnetDisclaimerText}>
-                Testnet
-              </Typography>
-            </div>
-          )}
-          {transactionQueueLength > 0 && (
-            <IconButton
-              className={classes.accountButton}
-              color="primary"
-              onClick={() => {
-                stores.emitter.emit(ACTIONS.TX_OPEN);
-              }}
-            >
-              <StyledBadge
-                badgeContent={transactionQueueLength}
-                color="secondary"
-                overlap="circular"
+      <div
+        className={`sticky top-0 z-10 grid w-full grid-flow-row border-cantoGreen border-opacity-50 transition-all duration-200 ${
+          scrollPosition > 0
+            ? "border-b-[0.25px] bg-[rgba(0,0,0,0.973)] opacity-90 backdrop-blur-2xl"
+            : "border-b-0 border-none"
+        }`}
+      >
+        <Info />
+        <div className="flex min-h-[60px] items-center justify-between rounded-none border-none py-5 px-8">
+          <a
+            onClick={() => router.push("/home")}
+            className="flex cursor-pointer items-center justify-center gap-2 rounded-[40px] py-1"
+          >
+            <SiteLogo />
+            <Typography className="text-2xl font-bold">v2</Typography>
+          </a>
+          <Navigation />
+          <div className="flex w-[260px] justify-end">
+            {process.env.NEXT_PUBLIC_CHAINID === "740" && (
+              <div>
+                <Typography className="rounded-xl border border-cantoGreen bg-[#0e110c] p-4 text-sm">
+                  Testnet
+                </Typography>
+              </div>
+            )}
+            {transactionQueueLength > 0 && (
+              <IconButton
+                className="flex min-h-[40px] items-center rounded-3xl border-none bg-[#040105] px-4 text-[rgba(255,255,255,0.87)] sm:min-h-[50px]"
+                color="primary"
+                onClick={() => {
+                  stores.emitter.emit(ACTIONS.TX_OPEN);
+                }}
               >
-                <List className={classes.iconColor} />
-              </StyledBadge>
-            </IconButton>
-          )}
-          {account && account.address ? (
-            <div>
+                <StyledBadge
+                  badgeContent={transactionQueueLength}
+                  color="secondary"
+                  overlap="circular"
+                >
+                  <List className="text-white" />
+                </StyledBadge>
+              </IconButton>
+            )}
+            {account && account.address ? (
+              <>
+                <Button
+                  disableElevation
+                  className="flex min-h-[40px] items-center rounded-3xl border border-solid border-cantoGreen bg-[#040105] px-4 text-[rgba(255,255,255,0.87)] sm:min-h-[50px]"
+                  variant="contained"
+                  color="primary"
+                  aria-controls="simple-menu"
+                  aria-haspopup="true"
+                  onClick={handleClick}
+                >
+                  <Typography className="text-sm font-bold">
+                    {formatAddress(account.address)}
+                  </Typography>
+                  <ArrowDropDown className="ml-1 -mr-2 -mt-1 text-[#7e99b0]" />
+                </Button>
+                <Menu
+                  elevation={0}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  id="customized-menu"
+                  anchorEl={anchorEl}
+                  keepMounted
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                >
+                  <StyledMenuItem onClick={onAddressClicked}>
+                    <ListItemIcon className="p-0 text-cantoGreen">
+                      <AccountBalanceWalletOutlined fontSize="small" />
+                    </ListItemIcon>
+                    <ListItemText primary="Switch Wallet Provider" />
+                  </StyledMenuItem>
+                </Menu>
+              </>
+            ) : (
               <Button
                 disableElevation
-                className={classes.accountButton}
+                className="flex min-h-[40px] items-center rounded-3xl border-none bg-[#040105] px-4 text-[rgba(255,255,255,0.87)] sm:min-h-[50px]"
                 variant="contained"
-                color="primary"
-                aria-controls="simple-menu"
-                aria-haspopup="true"
-                onClick={handleClick}
+                color={"primary"}
+                onClick={onAddressClicked}
               >
-                <div
-                  className={`${classes.accountIcon} ${classes.metamask}`}
-                ></div>
-                <Typography className={classes.headBtnTxt}>
-                  {formatAddress(account.address)}
+                <Typography className="text-sm font-bold">
+                  Connect Wallet
                 </Typography>
-                <ArrowDropDown className={classes.ddIcon} />
               </Button>
-              <Menu
-                elevation={0}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                id="customized-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                className={classes.userMenu}
-              >
-                <StyledMenuItem onClick={onAddressClicked}>
-                  <ListItemIcon className={classes.userMenuIcon}>
-                    <AccountBalanceWalletOutlined fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText
-                    className={classes.userMenuText}
-                    primary="Switch Wallet Provider"
-                  />
-                </StyledMenuItem>
-              </Menu>
-            </div>
-          ) : (
-            <Button
-              disableElevation
-              className={classes.accountButton}
-              variant="contained"
-              color={"primary"}
-              onClick={onAddressClicked}
-            >
-              <Typography className={classes.headBtnTxt}>
-                Connect Wallet
-              </Typography>
-            </Button>
+            )}
+          </div>
+          {unlockOpen && (
+            <Unlock modalOpen={unlockOpen} closeModal={closeUnlock} />
           )}
+          <TransactionQueue setQueueLength={setQueueLength} />
         </div>
-        {unlockOpen && (
-          <Unlock modalOpen={unlockOpen} closeModal={closeUnlock} />
-        )}
-        <TransactionQueue setQueueLength={setQueueLength} />
       </div>
       {chainInvalid ? (
-        <div className={classes.chainInvalidError}>
-          <div className={classes.ErrorContent}>
-            <WrongNetworkIcon className={classes.networkIcon} />
-            <Typography className={classes.ErrorTxt}>
+        <div className="fixed left-0 top-0 z-[1100] flex h-screen min-w-full flex-1 flex-wrap items-center justify-center bg-[rgba(17,23,42,0.9)] text-center">
+          <div>
+            <WrongNetworkIcon className="mb-5 text-8xl" />
+            <Typography className="max-w-md text-2xl text-white">
               The chain you're connected to isn't supported. Please check that
               your wallet is connected to Canto Mainnet.
             </Typography>
             <Button
-              className={classes.switchNetworkBtn}
+              className="scale-90 rounded-3xl border border-solid border-green-300 bg-green-300 px-6 pt-3 pb-4 font-bold transition-all duration-300 hover:scale-95 hover:bg-emerald-300"
               variant="contained"
               onClick={() => switchChain()}
             >

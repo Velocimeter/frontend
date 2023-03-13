@@ -23,25 +23,6 @@
   display: flex;
 }
 
-.timerBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-width: 178px;
-}
-
-.timerBox_title {
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.167;
-}
-
-.timerText {
-  font-size: 24px;
-  font-weight: 800;
-  line-height: 1.167;
-}
-
 .smallText {
   color: rgba(126, 153, 176, 0.9);
   margin: 0 15px 0 0 !important;
