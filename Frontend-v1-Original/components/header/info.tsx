@@ -55,7 +55,7 @@ export default function Info() {
       <div>
         Circulating Supply:{" "}
         <span className="tracking-tighter">
-          ${formatFinancialData(circulatingSupply)}
+          {formatFinancialData(circulatingSupply)}
         </span>
       </div>
       <Timer deadline={updateDate} />
