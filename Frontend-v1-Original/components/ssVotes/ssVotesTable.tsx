@@ -495,7 +495,7 @@ export default function EnhancedTable({
                   </TableCell>
                   <TableCell className={classes.cell} align="right">
                     <div className="text-xs font-light">
-                      {formatCurrency(row?.gauge?.bribesInUsd)} $USD
+                      ${formatCurrency(row?.gauge?.bribesInUsd)} USD
                     </div>
                     {row?.gauge?.bribes.map((bribe, idx) => {
                       return (
