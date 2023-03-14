@@ -231,7 +231,7 @@ function Header() {
         }`}
       >
         <Info />
-        <div className="flex min-h-[60px] items-center justify-between rounded-none border-none py-5 px-8">
+        <div className="flex min-h-[60px] items-center justify-between rounded-none border-none py-5 px-8 md:max-[1200px]:flex-col">
           <a
             onClick={() => router.push("/home")}
             className="flex cursor-pointer items-center justify-center gap-2 rounded-[40px] py-1"
@@ -240,7 +240,7 @@ function Header() {
             <Typography className="text-2xl font-bold">v2</Typography>
           </a>
           <Navigation />
-          <div className="flex w-[260px] justify-end gap-1">
+          <div className="flex justify-end gap-1 md:max-[1200px]:w-full md:max-[1200px]:items-end md:max-[1200px]:px-8 xl:w-[260px]">
             {process.env.NEXT_PUBLIC_CHAINID === "740" && (
               <div>
                 <Typography className="rounded-xl border border-cantoGreen bg-[#0e110c] p-4 text-sm">
