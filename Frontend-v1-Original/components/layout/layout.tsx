@@ -37,7 +37,7 @@ export default function Layout({
             <div className="block md:hidden">
               <MobileHeader />
             </div>
-            <div className="hidden md:block">
+            <div className="sticky top-0 hidden md:block">
               <Header />
             </div>
           </>
