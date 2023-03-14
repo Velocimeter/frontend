@@ -65,10 +65,10 @@ function Navigation() {
     return (
       <Link href={"/" + link}>
         <a
-          className={`relative m-0 cursor-pointer select-none appearance-none rounded-lg border border-transparent bg-transparent px-[24px] pt-2 pb-[10px] text-sm font-medium capitalize text-[#7e99b0] no-underline outline-0 ${
+          className={`relative m-0 cursor-pointer select-none appearance-none rounded-lg border bg-transparent px-[24px] pt-2 pb-[10px] text-sm font-medium capitalize text-[#7e99b0] no-underline outline-0 ${
             active === link
-              ? "border-cantoGreen text-white xs:shadow-[0_0_0.2em_rgb(30,131,126,0.99)]"
-              : ""
+              ? "border-cantoGreen text-white"
+              : "border-transparent"
           } inline-flex items-center justify-center py-6 hover:bg-[hsla(0,0%,100%,.04)]`}
         >
           <Typography
@@ -99,10 +99,8 @@ function Navigation() {
   };
 
   return (
-    <div className="fixed top-0 left-0 flex items-center border-0 bg-[#040105] px-4 py-0 shadow-[0_0_0.2em] shadow-cantoGreen max-lg:z-[10020] lg:relative lg:min-h-[unset] lg:rounded-xl lg:p-[10px]">
-      <div className="fixed top-11 left-0 w-full overflow-x-scroll border border-[rgba(126,153,176,0.2)] bg-[#040105] px-11 py-0 text-center xs:top-[60px] md:overflow-x-visible lg:relative lg:top-[unset] lg:left-[unset] lg:border-none lg:p-0">
-        {renderNavs()}
-      </div>
+    <div className="flex items-center rounded-2xl border-0 bg-transparent p-2 text-center shadow-[0_0_0.2em] shadow-cantoGreen">
+      {renderNavs()}
     </div>
   );
 }

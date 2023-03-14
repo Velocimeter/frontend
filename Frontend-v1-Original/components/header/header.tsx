@@ -240,7 +240,7 @@ function Header() {
             <Typography className="text-2xl font-bold">v2</Typography>
           </a>
           <Navigation />
-          <div className="flex w-[260px] justify-end">
+          <div className="flex w-[260px] justify-end gap-1">
             {process.env.NEXT_PUBLIC_CHAINID === "740" && (
               <div>
                 <Typography className="rounded-xl border border-cantoGreen bg-[#0e110c] p-4 text-sm">
@@ -269,7 +269,7 @@ function Header() {
               <>
                 <Button
                   disableElevation
-                  className="flex min-h-[40px] items-center rounded-3xl border border-solid border-cantoGreen bg-[#040105] px-4 text-[rgba(255,255,255,0.87)] sm:min-h-[50px]"
+                  className="flex min-h-[40px] items-center rounded-3xl border border-solid border-cantoGreen border-opacity-60 bg-[#040105] px-4 text-[rgba(255,255,255,0.87)] opacity-90 sm:min-h-[50px]"
                   variant="contained"
                   color="primary"
                   aria-controls="simple-menu"
