@@ -43,7 +43,7 @@ export default function Info() {
   }, []);
 
   return (
-    <div className="top-0 left-0 flex items-center gap-3 px-1 pt-2 font-['Sono'] sm:px-4">
+    <div className="flex flex-col items-start gap-3 px-6 pt-2 font-['Sono'] md:flex-row md:items-center md:px-4">
       <div>
         TVL:{" "}
         <span className="tracking-tighter">${formatFinancialData(tvl)}</span>
@@ -72,7 +72,7 @@ function Timer({ deadline }: { deadline: number }) {
   const { days, hours, minutes, seconds } = useTimer(deadline, MINUTE);
 
   return (
-    <div className="text-base">
+    <div>
       Next Epoch:{" "}
       <span className="tracking-tighter">
         {days + hours + minutes + seconds <= 0

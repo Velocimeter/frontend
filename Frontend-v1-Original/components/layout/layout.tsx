@@ -1,6 +1,7 @@
 import Head from "next/head";
 import classes from "./layout.module.css";
 import Header from "../header/header";
+import MobileHeader from "../header/mobileHeader";
 import SnackbarController from "../snackbar/snackbarController";
 
 export default function Layout({
@@ -31,7 +32,16 @@ export default function Layout({
       <div className={classes.greyGlow} />
       <div className={classes.greenGlow} />
       <div className={classes.content}>
-        {!configure && <Header />}
+        {!configure && (
+          <>
+            <div className="block md:hidden">
+              <MobileHeader />
+            </div>
+            <div className="hidden md:block">
+              <Header />
+            </div>
+          </>
+        )}
         <SnackbarController />
         <main>{children}</main>
       </div>
