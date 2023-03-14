@@ -93,6 +93,7 @@ interface Pair {
     rewardsEarned?: string;
     bribesEarned?: Bribe[] | BribeEarned[];
     votingApr?: number;
+    bribesInUsd?: number;
   };
   gaugebribes?: Bribe[];
 }
