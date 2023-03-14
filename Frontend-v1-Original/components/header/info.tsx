@@ -43,7 +43,7 @@ export default function Info() {
   }, []);
 
   return (
-    <div className="flex flex-col items-start gap-3 px-6 pt-2 font-['Sono'] md:flex-row md:items-center md:px-4">
+    <div className="flex flex-col items-start gap-3 px-6 pt-2 font-sono md:flex-row md:items-center md:px-4">
       <div>
         TVL:{" "}
         <span className="tracking-tighter">${formatFinancialData(tvl)}</span>

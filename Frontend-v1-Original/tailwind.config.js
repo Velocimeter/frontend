@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   important: true,
@@ -12,6 +14,9 @@ module.exports = {
     extend: {
       screens: {
         xs: "576px",
+      },
+      fontFamily: {
+        sono: ["Sono", ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
         homePage: 'url("/images/s.png")',
