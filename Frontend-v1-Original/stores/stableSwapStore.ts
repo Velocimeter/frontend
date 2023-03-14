@@ -1406,6 +1406,7 @@ class Store {
                 .toFixed(2);
               pair.gaugebribes = bribes;
               pair.gauge.votingApr = votingApr;
+              pair.gauge.bribesInUsd = totalUSDValueOfBribes;
             }
 
             return pair;

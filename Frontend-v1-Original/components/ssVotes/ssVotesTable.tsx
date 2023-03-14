@@ -494,6 +494,9 @@ export default function EnhancedTable({
                     </Typography>
                   </TableCell>
                   <TableCell className={classes.cell} align="right">
+                    <div className="text-xs font-light">
+                      {formatCurrency(row?.gauge?.bribesInUsd)} $USD
+                    </div>
                     {row?.gauge?.bribes.map((bribe, idx) => {
                       return (
                         <div
@@ -617,10 +620,10 @@ function descendingComparator(
       return 0;
 
     case "apy":
-      if (BigNumber(b?.gauge?.bribes.length).lt(a?.gauge?.bribes.length)) {
+      if (BigNumber(b?.gauge?.bribesInUsd).lt(a?.gauge?.bribesInUsd)) {
         return -1;
       }
-      if (BigNumber(b?.gauge?.bribes.length).gt(a?.gauge?.bribes.length)) {
+      if (BigNumber(b?.gauge?.bribesInUsd).gt(a?.gauge?.bribesInUsd)) {
         return 1;
       }
       return 0;
