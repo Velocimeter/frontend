@@ -224,7 +224,7 @@ function Header() {
   return (
     <>
       <div
-        className={`z-10 grid w-full grid-flow-row border-cantoGreen border-opacity-50 transition-all duration-200 ${
+        className={`grid w-full grid-flow-row border-cantoGreen border-opacity-50 transition-all duration-200 ${
           scrollPosition > 0
             ? "border-b-[0.25px] bg-[rgba(0,0,0,0.973)] opacity-90 backdrop-blur-2xl"
             : "border-b-0 border-none"
